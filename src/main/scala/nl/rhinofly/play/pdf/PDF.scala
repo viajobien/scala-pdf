@@ -9,11 +9,13 @@ import org.xhtmlrenderer.resource.XMLResource
 object PDF {
 
   private val renderer = new ITextRenderer
+  private val sharedContext = renderer.getSharedContext
   private val userAgent = new PDFUserAgent(renderer.getOutputDevice)
   private val fontResolver = renderer.getFontResolver
   private val tidy = new Tidy
 
-  renderer.getSharedContext.setUserAgentCallback(userAgent)
+  sharedContext.setUserAgentCallback(userAgent)
+  userAgent.setSharedContext(sharedContext)
   tidy.setXHTML(true)
 
   def toBytes(body: String, documentBaseURL: String): Array[Byte] =

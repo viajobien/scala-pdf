@@ -24,11 +24,30 @@ You can use a standard Play! scala template like this one:
 }
 ```
 
+### Play Framework 2.4
+
+Use following settings in build.sbt to make sure assets are found on the classpath using sbt run
+
+``` scala
+    (WebKeys.public in Assets) := (classDirectory in Compile).value / "public",
+    (compile in Compile) <<= (compile in Compile).dependsOn(WebKeys.assets in Assets)
+```
+
 Then this template, after having imported ```nl.rhinofly.play.PDF```, can simply be rendered as:
 ``` scala
 def document = Action {
-  val bytes = PDF.toBytes(views.html.pdf.example())
+  val bytes = PDF.toBytes(views.html.pdf.example(), "/")
   Ok(bytes).as("application/pdf")
+}
+```
+
+Or
+``` scala
+def document = Action {
+  val bytes = PDF.toBytes(views.html.pdf.example(), "/")
+  Ok(bytes).withHeaders(
+     CONTENT_TYPE -> "application/pdf",
+     CONTENT_DISPOSITION -> s"attachment; filename=Rapportage $month")
 }
 ```
 
@@ -84,6 +103,18 @@ Released under the MIT license; see the file LICENSE.
 ## Releases
 
 <table>
+  <tr>
+    <td>0.9</td>
+    <td>29.01.2016</td>
+    <td>Set sharedContext on userAgent</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>0.8</td>
+    <td>27.04.2015</td>
+    <td>Removed Play framework dependencies</td>
+    <td></td>
+  </tr>
   <tr>
     <td>0.7</td>
     <td>19.02.2015</td>

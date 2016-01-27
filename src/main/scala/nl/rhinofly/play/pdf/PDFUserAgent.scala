@@ -10,8 +10,8 @@ class PDFUserAgent(outputDevice: ITextOutputDevice) extends ITextUserAgent(outpu
   override def getImageResource(url: String): ImageResource = {
     getResourceAsStream(url).map { stream =>
       val image = Image.getInstance(getData(stream))
-      scaleToOutputResolution(image);
-      new ImageResource(url, new ITextFSImage(image));
+      scaleToOutputResolution(image)
+      new ImageResource(url, new ITextFSImage(image))
     } getOrElse super.getImageResource(url)
   }
 
@@ -34,9 +34,9 @@ class PDFUserAgent(outputDevice: ITextOutputDevice) extends ITextUserAgent(outpu
     Option(getClass.getResourceAsStream(url))
 
   private def scaleToOutputResolution(image: Image) {
-    val factor = getSharedContext().getDotsPerPixel();
+    val factor = getSharedContext().getDotsPerPixel()
     image.scaleAbsolute(image.getPlainWidth() * factor,
-      image.getPlainHeight() * factor);
+      image.getPlainHeight() * factor)
   }
 
   private def getData(stream: InputStream): Array[Byte] = {
