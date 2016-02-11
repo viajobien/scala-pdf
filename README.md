@@ -88,7 +88,7 @@ PDF.addFont("path/to/Arial.ttf")
 ## Installation
 ```
 val appDependencies = Seq(
-      "nl.rhinofly" %% "play-pdf" % "0.7"
+      "nl.rhinofly" %% "play-pdf" % "0.9"
 )
 
 val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
