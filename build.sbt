@@ -21,4 +21,4 @@ resolvers ++= Seq(
 )
 
 publishTo :=
-  Some("Rhinofly Repository" at "http://maven-repository.rhinofly.net:8081/artifactory/libs-release-local")
+  Some("Kaliber Repository" at "https://jars.kaliber.io/artifactory/libs-release-local")
