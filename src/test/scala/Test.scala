@@ -11,8 +11,8 @@ object Test extends Specification {
 
 s"""|============================
     |PLEASE CHECK IF THE RENDERED
-    |PFD CONTAINS AN IMAGE AND A
-    |CUSTOM FONT.
+    |PDF CONTAINS TWO IMAGES AND
+    |A CUSTOM FONT.
     |
     |${`test.pdf`}
     |============================""".stripMargin - {
