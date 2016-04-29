@@ -7,7 +7,7 @@ It is based on the Flying Saucer library, which in turn uses iText for PDF gener
 
 ## Installation
 ```
-libraryDependencies += "net.kaliber" %% "play-pdf" % "0.10"
+libraryDependencies += "net.kaliber" %% "scala-pdf" % "0.11"
 
 resolvers += "Kaliber Repository" at "https://jars.kaliber.io/artifactory/libs-release-local"
 ```

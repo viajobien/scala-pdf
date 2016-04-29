@@ -4,7 +4,7 @@ ReleaseKeys.crossBuild := true
 
 name := "scala-pdf"
 
-organization := "nl.rhinofly"
+organization := "net.kaliber"
 
 scalaVersion := "2.11.4"
 
