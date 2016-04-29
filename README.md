@@ -1,108 +1,36 @@
 # Scala PDF module
 
-This module help in generating PDF documents dynamically from your Play! web application.
+This module helps in generating PDF documents dynamically from your Scala application.
 It simply renders your HTML- and CSS-based templates to PDF.
+
 It is based on the Flying Saucer library, which in turn uses iText for PDF generation.
-
-## Usage
-
-### Scala
-
-var document = <body><label>Scala PDF</label</body>
-var bytes = PDF.toStream(views.html.pdf.example())
-
-### Play Framework 2
-
-You can use a standard Play! scala template like this one:
-``` html
-@(message: String)
-
-@main("Welcome to Play 2.0") {
-    Image: <img src="/public/images/favicon.png"/><br/>
-    Hello world! <br/>
-    @message <br/>
-}
-```
-
-### Play Framework 2.4
-
-Use following settings in build.sbt to make sure assets are found on the classpath using sbt run
-
-``` scala
-    (WebKeys.public in Assets) := (classDirectory in Compile).value / "public",
-    (compile in Compile) <<= (compile in Compile).dependsOn(WebKeys.assets in Assets)
-```
-
-Then this template, after having imported ```nl.rhinofly.play.PDF```, can simply be rendered as:
-``` scala
-def document = Action {
-  val bytes = PDF.toBytes(views.html.pdf.example(), "/")
-  Ok(bytes).as("application/pdf")
-}
-```
-
-Or
-``` scala
-def document = Action {
-  val bytes = PDF.toBytes(views.html.pdf.example(), "/")
-  Ok(bytes).withHeaders(
-     CONTENT_TYPE -> "application/pdf",
-     CONTENT_DISPOSITION -> s"attachment; filename=Rapportage $month")
-}
-```
-
-## Template rules
-
-
-Templates must generate XHTML.
-
-If the template is using an image, stylesheet, etc., it usually is loaded via an http call.
-The PDF modules tries to optimize that resource loading:
-
-Of course you can link to CSS files in your class path also, but be aware not to
-use the ``` media="screen"```qualifier.
-
-Fonts you use must be explicitely packaged with your app.
-```
-<html>
-	<head>
-		<style type="text/css"><!--
-		body {
-			...
-			font-family: Arial;
-		}
-		--></style>	
-	</head>
-	<body>
-		...
-	</body>
-</html>
-```
-
-The Arial font is not available within the JVM thus it's required to add the TrueType Font file.
-
-```scala
-PDF.addFont("path/to/Arial.ttf")
-```
 
 ## Installation
 ```
-val appDependencies = Seq(
-      "nl.rhinofly" %% "play-pdf" % "0.9"
-)
+libraryDependencies += "net.kaliber" %% "play-pdf" % "0.10"
 
-val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
-    resolvers += "Rhinofly Internal Repository" at "http://maven-repository.rhinofly.net:8081/artifactory/libs-release-local"
-  )
+resolvers += "Kaliber Repository" at "https://jars.kaliber.io/artifactory/libs-release-local"
 ```
 
+## Usage
 
-## License
-Released under the MIT license; see the file LICENSE.
+```
+val body = /* some xhtml string */
+val renderer = new PdfRenderer(classLoader)
+val bytes = renderer.toBytes(body)
+```
+
+Please see the `Test.scala` file for an example of loading.
 
 ## Releases
 
 <table>
+  <tr>
+    <td>0.10</td>
+    <td>29.04.2016</td>
+    <td>Radical rewrite</td>
+    <td></td>
+  </tr>
   <tr>
     <td>0.9</td>
     <td>29.01.2016</td>
