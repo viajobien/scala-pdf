@@ -26,6 +26,11 @@ Please see the `Test.scala` file for an example of loading.
 
 <table>
   <tr>
+    <td>0.11</td>
+    <td>2016-04-29</td>
+    <td>Changed organisation</td>
+    <td></td>
+  <tr>
     <td>0.10</td>
     <td>29.04.2016</td>
     <td>Radical rewrite</td>
