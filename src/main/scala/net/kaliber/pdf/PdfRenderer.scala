@@ -1,23 +1,23 @@
 package net.kaliber.pdf
 
-import java.io.{
-  ByteArrayOutputStream,
-  StringReader,
-  StringWriter
-}
+import java.io.{ByteArrayOutputStream, StringReader, StringWriter}
+
 import org.w3c.tidy.Tidy
 import org.xhtmlrenderer.pdf.ITextRenderer
 import org.xhtmlrenderer.resource.XMLResource
 import org.xhtmlrenderer.context.StyleReference
+import org.xhtmlrenderer.extend.FontResolver
 
 /**
  * Simple wrapper.
  *
- * @classLoader The class loader used to resolve assets
+ * `PdfRenderer` wraps the the rendering with iText
+  * @param classLoader:ClassLoader - The class loader used to resolve assets
+  * @param customRenderer:ITextRenderer - custom renderer to do changes on the fly
  */
-class PdfRenderer(classLoader: ClassLoader) {
+class PdfRenderer(classLoader: ClassLoader, customRenderer: ITextRenderer = new ITextRenderer) {
 
-  private val renderer = doto(new ITextRenderer) { renderer =>
+  private val renderer = doto(customRenderer) { renderer =>
     // spaghetti with bolognese
     val sharedContext = renderer.getSharedContext
     val userAgent = new ClassLoaderUserAgent(
