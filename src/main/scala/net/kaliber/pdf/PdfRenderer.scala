@@ -6,12 +6,13 @@ import org.w3c.tidy.Tidy
 import org.xhtmlrenderer.pdf.ITextRenderer
 import org.xhtmlrenderer.resource.XMLResource
 import org.xhtmlrenderer.context.StyleReference
-import org.xhtmlrenderer.extend.FontResolver
 
 /**
- * Simple wrapper.
  *
- * `PdfRenderer` wraps the the rendering with iText
+ * `PdfRenderer`
+  *
+  * a simple wrapper to generate content that could be rendered as pdf
+  *
   * @param classLoader:ClassLoader - The class loader used to resolve assets
   * @param customRenderer:ITextRenderer - custom renderer to do changes on the fly
  */
@@ -40,7 +41,7 @@ class PdfRenderer(classLoader: ClassLoader, customRenderer: ITextRenderer = new 
         val reader = new StringReader(tidify(body))
         val document = XMLResource.load(reader).getDocument
         renderer.setDocument(document, "")
-        renderer.layout
+        renderer.layout()
         renderer.createPDF(output)
       } finally output.close()
     }
