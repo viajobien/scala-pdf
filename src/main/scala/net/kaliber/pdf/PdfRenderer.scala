@@ -1,23 +1,24 @@
 package net.kaliber.pdf
 
-import java.io.{
-  ByteArrayOutputStream,
-  StringReader,
-  StringWriter
-}
+import java.io.{ByteArrayOutputStream, StringReader, StringWriter}
+
 import org.w3c.tidy.Tidy
 import org.xhtmlrenderer.pdf.ITextRenderer
 import org.xhtmlrenderer.resource.XMLResource
 import org.xhtmlrenderer.context.StyleReference
 
 /**
- * Simple wrapper.
  *
- * @classLoader The class loader used to resolve assets
+ * `PdfRenderer`
+  *
+  * a simple wrapper to generate content that could be rendered as pdf
+  *
+  * @param classLoader:ClassLoader - The class loader used to resolve assets
+  * @param customRenderer:ITextRenderer - custom renderer to do changes on the fly
  */
-class PdfRenderer(classLoader: ClassLoader) {
+class PdfRenderer(classLoader: ClassLoader, customRenderer: ITextRenderer = new ITextRenderer) {
 
-  private val renderer = doto(new ITextRenderer) { renderer =>
+  private val renderer = doto(customRenderer) { renderer =>
     // spaghetti with bolognese
     val sharedContext = renderer.getSharedContext
     val userAgent = new ClassLoaderUserAgent(
@@ -40,7 +41,7 @@ class PdfRenderer(classLoader: ClassLoader) {
         val reader = new StringReader(tidify(body))
         val document = XMLResource.load(reader).getDocument
         renderer.setDocument(document, "")
-        renderer.layout
+        renderer.layout()
         renderer.createPDF(output)
       } finally output.close()
     }

@@ -6,9 +6,9 @@ name := "scala-pdf"
 
 organization := "net.kaliber"
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.10.4", scalaVersion.value)
+crossScalaVersions := Seq("2.10.4", "2.11.4", scalaVersion.value)
 
 libraryDependencies ++= Seq(
   "org.xhtmlrenderer" % "flying-saucer-core" % "9.0.7",
