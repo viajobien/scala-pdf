@@ -1,13 +1,13 @@
 import java.net.URLClassLoader
 import java.nio.file.{Files, Path, Paths}
 
-import net.kaliber.pdf.PdfRenderer
-import org.qirx.littlespec.Specification
+import com.viajobien.scalapdf.PdfRenderer
+import org.scalatest.WordSpecLike
 import org.xhtmlrenderer.pdf.ITextRenderer
 
 import scala.io.Source
 
-object Test extends Specification {
+object Test extends WordSpecLike {
 
   val examples: Path = Paths.get("./example")
   val `test.pdf`: Path = examples resolve "test.pdf"
@@ -22,7 +22,7 @@ object Test extends Specification {
     |A CUSTOM FONT.
     |
     |${`test.pdf`}
-    |============================""".stripMargin - {
+    |============================""".stripMargin in {
      val classLoader = new URLClassLoader(Array(examples.toUri.toURL))
 
      val body = {
@@ -36,8 +36,6 @@ object Test extends Specification {
      }
 
      Files write (`test.pdf`, pdf)
-
-     todo
 
     // Todo Write proper tests please
 

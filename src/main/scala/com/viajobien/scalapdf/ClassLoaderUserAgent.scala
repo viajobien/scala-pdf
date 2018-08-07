@@ -1,14 +1,13 @@
-package net.kaliber.pdf
+package com.viajobien.scalapdf
 
 import org.xhtmlrenderer.layout.SharedContext
 import org.xhtmlrenderer.pdf.ITextOutputDevice
 import org.xhtmlrenderer.pdf.ITextUserAgent
 
 class ClassLoaderUserAgent(
-  outputDevice: ITextOutputDevice,
-  classLoader: ClassLoader,
-  sharedContext: SharedContext
-) extends ITextUserAgent(outputDevice) {
+    outputDevice: ITextOutputDevice,
+    classLoader: ClassLoader,
+    sharedContext: SharedContext) extends ITextUserAgent(outputDevice) {
 
   setSharedContext(sharedContext)
 

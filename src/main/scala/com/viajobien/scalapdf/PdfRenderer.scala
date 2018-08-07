@@ -1,6 +1,6 @@
-package net.kaliber.pdf
+package com.viajobien.scalapdf
 
-import java.io.{ByteArrayOutputStream, StringReader, StringWriter}
+import java.io.{ ByteArrayOutputStream, StringReader, StringWriter }
 
 import org.w3c.tidy.Tidy
 import org.xhtmlrenderer.pdf.ITextRenderer
@@ -8,13 +8,12 @@ import org.xhtmlrenderer.resource.XMLResource
 import org.xhtmlrenderer.context.StyleReference
 
 /**
- *
  * `PdfRenderer`
-  *
-  * a simple wrapper to generate content that could be rendered as pdf
-  *
-  * @param classLoader:ClassLoader - The class loader used to resolve assets
-  * @param customRenderer:ITextRenderer - custom renderer to do changes on the fly
+ *
+ * a simple wrapper to generate content that could be rendered as pdf
+ *
+ * @param classLoader:ClassLoader - The class loader used to resolve assets
+ * @param customRenderer:ITextRenderer - custom renderer to do changes on the fly
  */
 class PdfRenderer(classLoader: ClassLoader, customRenderer: ITextRenderer = new ITextRenderer) {
 
@@ -24,8 +23,7 @@ class PdfRenderer(classLoader: ClassLoader, customRenderer: ITextRenderer = new 
     val userAgent = new ClassLoaderUserAgent(
       renderer.getOutputDevice,
       classLoader,
-      sharedContext
-    )
+      sharedContext)
     sharedContext.setUserAgentCallback(userAgent)
     sharedContext.setCss(new StyleReference(userAgent))
   }
@@ -51,5 +49,9 @@ class PdfRenderer(classLoader: ClassLoader, customRenderer: ITextRenderer = new 
       tidy.parse(new StringReader(body), _)
     }.toString
 
-  private def doto[T](t: T)(code: T => Unit): T = {code(t); t}
+  private def doto[T](t: T)(code: T => Unit): T = {
+    code(t)
+    t
+  }
+
 }
