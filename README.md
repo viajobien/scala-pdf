@@ -7,7 +7,7 @@ It is based on the Flying Saucer library, which in turn uses iText for PDF gener
 
 ## Installation
 ```
-libraryDependencies += "com.viajobien" %% "scala-pdf" % "0.12"
+libraryDependencies += "com.viajobien" %% "scala-pdf" % "0.1.0"
 ```
 
 ## Usage
