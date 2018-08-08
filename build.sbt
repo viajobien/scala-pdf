@@ -35,6 +35,7 @@ libraryDependencies ++= {
   )
 }
 
+releaseVersionBump := sbtrelease.Version.Bump.Minor
 releaseCrossBuild := true
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
@@ -55,19 +56,24 @@ releaseProcess := Seq[ReleaseStep](
 credentials += Credentials(Path.userHome / ".ivy2" / ".vb_sonatype")
 sonatypeProfileName := organization.value
 publishMavenStyle := true
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
+publishTo := sonatypePublishTo.value
+
+publishConfiguration := publishConfiguration.value.withOverwrite(true)
+publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true)
 
 homepage := Some(url("https://github.com/viajobien/scala-pdf"))
 licenses := Seq("MIT License" -> url("http://opensource.org/licenses/mit-license.php"))
-pomExtra := {
-  <scm>
-    <url>git@github.com:viajobien/scala-pdf.git</url>
-    <connection>scm:git@github.com:viajobien/scala-pdf.git</connection>
-  </scm>
-}
+scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/viajobien/scala-pdf"),
+    "scm:git@github.com:viajobien/scala-pdf.git"
+  )
+)
+developers := List(
+  Developer(
+    id    = "LeonhardtDavid",
+    name  = "David Leonhardt",
+    email = "davidleonhardt@gmail.com",
+    url   = url("https://github.com/LeonhardtDavid")
+  )
+)
