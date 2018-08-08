@@ -18,7 +18,6 @@ import org.xhtmlrenderer.context.StyleReference
 class PdfRenderer(classLoader: ClassLoader, customRenderer: ITextRenderer = new ITextRenderer) {
 
   private val renderer = doto(customRenderer) { renderer =>
-    // spaghetti with bolognese
     val sharedContext = renderer.getSharedContext
     val userAgent = new ClassLoaderUserAgent(
       renderer.getOutputDevice,

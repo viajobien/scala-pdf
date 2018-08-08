@@ -1,6 +1,7 @@
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform._
 import scalariform.formatter.preferences._
+import ReleaseTransformations._
 
 name := "scala-pdf"
 organization := "com.viajobien"
@@ -35,6 +36,21 @@ libraryDependencies ++= {
 }
 
 releaseCrossBuild := true
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  // For non cross-build projects, use releaseStepCommand("publishSigned")
+  releaseStepCommandAndRemaining("+publishSigned"),
+  setNextVersion,
+  commitNextVersion,
+  releaseStepCommand("sonatypeReleaseAll"),
+  pushChanges
+)
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".vb_sonatype")
 sonatypeProfileName := organization.value
